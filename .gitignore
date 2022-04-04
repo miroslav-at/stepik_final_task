@@ -1,0 +1,4 @@
+.idea/
+selenium_env/
+__pycache__/
+.pytest_cache/
