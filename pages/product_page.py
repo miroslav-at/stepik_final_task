@@ -22,32 +22,37 @@ class ProductPage(BasePage):
 
     # Проверяет отсутствие сообщения об успехе до добавления товара в корзину
     def check_for_missing_success_message(self):
-        # Проверяет отсутствие сообщения об успехе до добавления товара в корзину
         self.should_not_be_success_message()
 
     # Проверяет, что сообщение исчезло после добавления товара в корзину
     def check_message_after_adding_product_to_basket(self):
         self.should_dissapear_of_success_message()
 
+    # Проверяет наличие наименования товара
     def should_be_product_name(self):
         assert self.is_element_present(*ProductPageLocators.PRODUCT_NAME), "Name of product not found"
         self.product_name = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME).text
 
+    # Проверяет наличие цены товара
     def should_be_price(self):
         assert self.is_element_present(*ProductPageLocators.PRODUCT_PRISE), "Price of product not found"
         self.product_price = self.browser.find_element(*ProductPageLocators.PRODUCT_PRISE).text
 
+    # Проверяет наличие описания товара
     def should_be_decription(self):
         assert self.is_element_present(*ProductPageLocators.PRODUCT_DESCRIPTION), "Description of product not found"
         self.product_decription = self.browser.find_element(*ProductPageLocators.PRODUCT_DESCRIPTION).text
 
+    # Проверяет наличие кнопки добавления товара в корзину
     def should_be_add_button(self):
         assert self.is_element_present(*ProductPageLocators.BUTTON_ADD_TO_BASKET), "Button 'Add to basket' is not "
 
+    # Проверяет наличие сообщения об успешном добавлении товара в корзину
     def should_be_success(self):
         assert self.is_element_present(*ProductPageLocators.SUCCESS_MESSAGE), "Message of Success added product in " \
                                                                               "basket not found "
 
+    # Проверяет корректность сообщения об успешном добавлении товара в корзину
     def check_success_message(self):
         success_message = self.browser.find_elements(*ProductPageLocators.SUCCESS_MESSAGE)
         assert len(success_message) == 3, "Success message not found"
@@ -55,6 +60,7 @@ class ProductPage(BasePage):
         assert self.product_name == success_message[0].text, "Wrong name product added to basket"
         assert self.product_price == success_message[2].text, "Wrong price product added to basket"
 
+    # Проверяет отсутствие сообщения об успехе
     def should_not_be_success_message(self):
         assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE), \
             "Success message is presented, but should not be"
