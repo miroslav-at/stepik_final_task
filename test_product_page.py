@@ -17,6 +17,7 @@ links.insert(xfile, xlink)
 
 @pytest.mark.login
 class TestLoginFromProductPage():
+    @pytest.mark.need_review
     @pytest.mark.parametrize('link', links)
     # Проверяет добавление в корзину со страницы товара
     def test_guest_can_add_product_to_basket(self, browser, link):
@@ -53,6 +54,7 @@ class TestLoginFromProductPage():
         page.should_be_login_link()
 
     # Переходит на страницу логина
+    @pytest.mark.need_review
     def test_guest_can_go_to_login_page_from_product_page(self, browser):
         page = ProductPage(browser, link_product_page)
         page.open()
@@ -61,6 +63,7 @@ class TestLoginFromProductPage():
         login_page.should_be_login_page()
 
     # Проверяет корзину со страницы товара
+    @pytest.mark.need_review
     def test_guest_cant_see_product_in_basket_opened_from_product_page(self, browser):
         page = ProductPage(browser, link_product_page)
         page.open()
@@ -86,10 +89,9 @@ class TestUserAddToBasketFromProductPage():
         page.open()
         page.check_for_missing_success_message()
 
-    # Проверяет корзину со страницы товара
-    def test_user_cant_see_product_in_basket_opened_from_product_page(self, browser):
-        page = ProductPage(browser, link_product_page)
+    @pytest.mark.need_review
+    # Проверяет добавление в корзину со страницы товара
+    def test_user_can_add_product_to_basket(self, browser):
+        page = ProductPage(browser, link_product_page_promo)
         page.open()
-        page.go_to_basket_page()
-        basket_page = BasketPage(browser, browser.current_url)
-        basket_page.check_for_the_absence_of_products_in_the_basket()
+        page.add_product_to_basket()
